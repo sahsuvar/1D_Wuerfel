@@ -4,38 +4,38 @@
  *  Created on: Dec 13, 2017
  *      Author: ChriPhiPa
  */
-// allgemeine Includes
+// Allgemeine Includes
 #include <sys/types.h>
 #include <pthread.h>
 
-// locale Includes
+//Lokale Includes
 #include "CContainer.h"
 #include "CThread.h"
 
-// eigene Header-Includes
+// Eigene Header-Includes
 #include "CCommComp.h"
 #include "CControlComp.h"
 
-// globale Objekte
+// Globale Objekte
 CContainer myContainer;
-//pthread_t CommComp_TID, ControlComp_TID;
 
 int main()
 {
-
+	// Erzeugen der Zugriffsobjekte
 	CCommComp commcomp;
 	CControlComp controlcomp;
 
+	// Erzeugen der Threadobjekte
 	CThread commThread(&commcomp,CThread::PRIORITY_ABOVE_NORM);
 	CThread controlThread(&controlcomp,CThread::PRIORITY_ABOVE_NORM);
 
+	// Starten der Threads
 	commThread.start();
 	controlThread.start();
 
+	// Warten auf Beendigung der Threads
 	commThread.join();
 	controlThread.join();
-
-
 
 
 	return 0;
